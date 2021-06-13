@@ -18,7 +18,7 @@ const port = config.app.port;
 
 app.set("port", port);
 app.get("/", function (req, res, next) {
-  client.query("SELECT * FROM Employee", [], function (err, result) {
+  client.query("SELECT * FROM public.logs", [], function (err, result) {
     if (err) {
       console.log(err);
       res.status(400).send(err);
