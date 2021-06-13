@@ -1,5 +1,3 @@
-DROP TABLE public.logs;
-
 CREATE TABLE IF NOT EXISTS public.logs
 (
     id integer NOT NULL,

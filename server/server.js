@@ -1,4 +1,5 @@
 const express = require("express");
+var bodyParser = require("body-parser");
 const { Client } = require("pg");
 const config = require("./config");
 
@@ -16,6 +17,12 @@ client.connect();
 var app = express();
 const port = config.app.port;
 
+// parse application/x-www-form-urlencoded
+app.use(bodyParser.urlencoded());
+
+// parse application/json
+app.use(bodyParser.json());
+
 app.set("port", port);
 app.get("/", function (req, res, next) {
   client.query("SELECT * FROM public.logs", [], function (err, result) {
@@ -25,6 +32,16 @@ app.get("/", function (req, res, next) {
     }
     res.status(200).send(result.rows);
   });
+});
+
+app.post("/", function (req, res, next) {
+  if (!req.body || !req.body.log) {
+    return res.status(401).send({ message: "Bad request no log object" });
+  }
+  const { event, user } = req.body.log;
+  return res
+    .status(200)
+    .send({ message: `log saved - event ${event} by user ${user}` });
 });
 
 app.listen(port, function () {

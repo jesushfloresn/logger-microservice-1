@@ -1,4 +1,4 @@
-DROP TABLE public.logs;
+DROP TABLE IF EXISTS public.logs;
 
 CREATE TABLE IF NOT EXISTS public.logs
 (

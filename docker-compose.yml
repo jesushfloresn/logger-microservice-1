@@ -3,12 +3,12 @@ version: "3"
 services:
   webapp:
     depends_on:
-      - database
+      - databaseprod
     build:
       context: ./server
     ports:
       - "5100:3003"
-  database:
+  databaseprod:
     image: "postgres" # use latest official postgres version
     ports:
       - "5432:5432"
