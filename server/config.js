@@ -12,6 +12,7 @@ const dev = {
     user: process.env.DEV_DB_USER || "logger_admin",
     password: process.env.DEV_DB_PASSWORD || "32SsNeiy",
     database: process.env.DEV_DB_NAME || "logger_database",
+    port: parseInt(process.env.DEV_DB_PORT) || 5432,
   },
 };
 
@@ -24,6 +25,7 @@ const test = {
     user: process.env.TEST_DB_USER || "logger_admin",
     password: process.env.TEST_DB_PASSWORD || "32SsNeiy",
     database: process.env.TEST_DB_NAME || "logger_database",
+    port: parseInt(process.env.TEST_DB_PORT) || 5432,
   },
 };
 
@@ -36,6 +38,7 @@ const prod = {
     user: process.env.PROD_DB_USER,
     password: process.env.PROD_DB_PASSWORD,
     database: process.env.PROD_DB_NAME,
+    port: parseInt(process.env.PROD_DB_PORT) || 5432,
   },
 };
 
