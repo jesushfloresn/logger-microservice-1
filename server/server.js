@@ -4,10 +4,10 @@ const { Client } = require("pg");
 const config = require("./config");
 
 const {
-  db: { url, user, password, database },
+  db: { url, user, password, database, port },
 } = config;
 
-const connectionString = `postgres://${user}:${password}@${url}:5432/${database}`;
+const connectionString = `postgres://${user}:${password}@${url}:${port}/${database}`;
 
 const client = new Client({
   connectionString: connectionString,
@@ -15,7 +15,7 @@ const client = new Client({
 
 client.connect();
 var app = express();
-const port = config.app.port;
+const appPort = config.app.port;
 
 // parse application/x-www-form-urlencoded
 app.use(bodyParser.urlencoded());
@@ -23,7 +23,7 @@ app.use(bodyParser.urlencoded());
 // parse application/json
 app.use(bodyParser.json());
 
-app.set("port", port);
+app.set("port", appPort);
 app.get("/", function (req, res, next) {
   client.query("SELECT * FROM public.logs", [], function (err, result) {
     if (err) {
@@ -44,6 +44,6 @@ app.post("/", function (req, res, next) {
     .send({ message: `log saved - event ${event} by user ${user}` });
 });
 
-app.listen(port, function () {
-  console.log(`Server is running.. on Port ${port}`);
+app.listen(appPort, function () {
+  console.log(`Server is running.. on port ${appPort}`);
 });
